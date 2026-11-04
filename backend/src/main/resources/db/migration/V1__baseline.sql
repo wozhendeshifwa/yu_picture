@@ -1,0 +1,3 @@
+-- V1 baseline：本轮只打通数据库通道，不建业务表。
+-- 第一张业务表从 V2 开始，形状等领域模型定下来再加。
+-- 这个文件存在的意义：证明 Flyway 能连库、能建 flyway_schema_history、yu_app 有 DDL 权限。

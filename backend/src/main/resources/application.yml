@@ -2,8 +2,33 @@ spring:
   application:
     name: yu-picture-backend
 
+  datasource:
+    # 默认走本地 SSH 隧道：127.0.0.1:13306 -> ECS -> RDS。
+    # 本机 IP 不在 RDS 白名单里，直连公网地址收不到握手包，所以默认值必须是隧道。
+    # 将来部署到 ECS 时用 SPRING_DATASOURCE_URL 覆盖成内网地址即可，代码不用动。
+    url: "${SPRING_DATASOURCE_URL:jdbc:mysql://127.0.0.1:13306/yu_picture?sslMode=VERIFY_CA&serverTimezone=Asia/Shanghai&characterEncoding=utf8&trustCertificateKeyStoreUrl=file:./.certs/ApsaraDB-CA-Chain.jks&trustCertificateKeyStorePassword=apsaradb&trustCertificateKeyStoreType=JKS}"
+    username: ${SPRING_DATASOURCE_USERNAME:yu_app}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-timeout: 3000
+      max-lifetime: 1800000
+      validation-timeout: 1000
+      # 连不上库也照常启动：状态交给 /api/health/db 报告，前端开发不被隧道绑架。
+      initialization-fail-timeout: -1
+
+  flyway:
+    # 本地默认关：Flyway 连不上库会导致整个应用起不来。
+    # 要验证迁移通道时用 SPRING_FLYWAY_ENABLED=true 显式打开；prod profile 常开。
+    enabled: ${SPRING_FLYWAY_ENABLED:false}
+    locations: classpath:db/migration
+
 server:
   port: ${SERVER_PORT:5000}
 
-# 本轮不接数据库：刻意不写 spring.datasource，也刻意不引 DB starter。
-# 将来要接 RDS 时，连接参数见 deploy/README.md §5，密码只走环境变量。
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true

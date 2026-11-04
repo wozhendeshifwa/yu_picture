@@ -5,6 +5,8 @@ frontend/.env*.local
 
 # 后端
 backend/target/
+backend/.env.local
+backend/.certs/
 
 # 编辑器
 .idea/

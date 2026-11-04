@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    # 生产必须显式给值：没给就直接起不来，这是故意的。
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    hikari:
+      minimum-idle: 2
+      initialization-fail-timeout: 1
+
+  flyway:
+    enabled: true

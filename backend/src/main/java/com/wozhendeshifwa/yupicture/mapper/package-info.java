@@ -1,4 +1,4 @@
 /**
- * 数据访问层。本轮不接数据库，先占位；接入 RDS 时再补 MyBatis/JPA 实现。
+ * 数据访问层。目前只有 HealthMapper 一个通道探针，业务 mapper 等表设计出来再加。
  */
 package com.wozhendeshifwa.yupicture.mapper;
