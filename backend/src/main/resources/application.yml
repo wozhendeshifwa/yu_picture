@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: yu-picture-backend
+
+server:
+  port: ${SERVER_PORT:5000}
+
+# 本轮不接数据库：刻意不写 spring.datasource，也刻意不引 DB starter。
+# 将来要接 RDS 时，连接参数见 deploy/README.md §5，密码只走环境变量。
