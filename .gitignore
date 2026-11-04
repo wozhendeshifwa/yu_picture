@@ -1,0 +1,21 @@
+# 前端
+frontend/node_modules/
+frontend/dist/
+frontend/.env*.local
+
+# 后端
+backend/target/
+
+# 编辑器
+.idea/
+*.iml
+.vscode/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+npm-debug.log*
+pnpm-debug.log*
